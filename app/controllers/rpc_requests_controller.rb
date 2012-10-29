@@ -40,27 +40,27 @@ class RpcRequestsController < ApplicationController
   # POST /rpc_requests
   # POST /rpc_requests.json
   def create
-    #@rpc_request = RpcRequest.new(params[:rpc_request])
+    @rpc_request = RpcRequest.new(params[:rpc_request])
     require "xmlrpc/client"
 
     # Make an object to represent the XML-RPC server.
-    server = XMLRPC::Client.new( "localhost", "/", 8080)
+    server = XMLRPC::Client.new( "rpcserver.dev", "/", 80)
 
     # Call the remote server and get our result
-    result = server.call("sample.sumAndDifference", 5, 3)
+    @result = server.call("sample.sumAndDifference", params[:rpc_request][:params], params[:rpc_request][:params])
 
     sum = result["sum"]
     difference = result["difference"]
 
     logger.debug "Sum: #{sum}, Difference: #{difference}"
     respond_to do |format|
-      #if @rpc_request.save
-      #  format.html { redirect_to @rpc_request, :notice => 'Rpc request was successfully created.' }
-      #  format.json { render :json => @rpc_request, :status => :created, :location => @rpc_request }
-      #else
-      #  format.html { render :action => "new" }
-      #  format.json { render :json => @rpc_request.errors, :status => :unprocessable_entity }
-      #end
+      if @rpc_request.save
+        format.html { redirect_to @rpc_request, :notice => 'Rpc request was successfully created.' }
+        format.json { render :json => @rpc_request, :status => :created, :location => @rpc_request }
+      else
+        format.html { render :action => "new" }
+        format.json { render :json => @rpc_request.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
