@@ -1,0 +1,25 @@
+<h1>Listing rpc_requests</h1>
+
+<table>
+  <tr>
+    <th>Methodname</th>
+    <th>Params</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rpc_requests.each do |rpc_request| %>
+  <tr>
+    <td><%= rpc_request.methodName %></td>
+    <td><%= rpc_request.params %></td>
+    <td><%= link_to 'Show', rpc_request %></td>
+    <td><%= link_to 'Edit', edit_rpc_request_path(rpc_request) %></td>
+    <td><%= link_to 'Destroy', rpc_request, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Rpc request', new_rpc_request_path %>

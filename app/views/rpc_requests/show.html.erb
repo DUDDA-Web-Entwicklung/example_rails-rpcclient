@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Methodname:</b>
+  <%= @rpc_request.methodName %>
+</p>
+
+<p>
+  <b>Params:</b>
+  <%= @rpc_request.params %>
+</p>
+
+
+<%= link_to 'Edit', edit_rpc_request_path(@rpc_request) %> |
+<%= link_to 'Back', rpc_requests_path %>

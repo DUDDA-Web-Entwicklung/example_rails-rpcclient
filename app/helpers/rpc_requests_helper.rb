@@ -1,0 +1,2 @@
+module RpcRequestsHelper
+end

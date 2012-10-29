@@ -1,0 +1,25 @@
+<%= form_for(@rpc_request) do |f| %>
+  <% if @rpc_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rpc_request.errors.count, "error") %> prohibited this rpc_request from being saved:</h2>
+
+      <ul>
+      <% @rpc_request.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :methodName %><br />
+    <%= f.text_field :methodName %>
+  </div>
+  <div class="field">
+    <%= f.label :params %><br />
+    <%= f.text_area :params %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
