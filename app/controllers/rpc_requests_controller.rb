@@ -55,14 +55,12 @@ class RpcRequestsController < ApplicationController
 
     # Make an object to represent the XML-RPC server.
     #server = XMLRPC::Client.new( "rpcserver.dev", "/", 80)
-    logger.info @option.value
-    #server = XMLRPC::Client.new( @option.value, "/", 80)
-    server = XMLRPC::Client.new( "rpcserver.herokuapp.com", "/", 80)
-
+    server = XMLRPC::Client.new( @option.value, "/", 80)
+    #server = XMLRPC::Client.new( "rpcserver.herokuapp.com", "/", 80)
     p = params[:rpc_request][:params].split "\n"
     # Call the remote server and get our result
     begin
-      @rpc_request.response = server.call(params[:rpc_request][:methodName], p[0].strip, p[1].strip, p[2].strip, p[3].strip, p[4].strip)
+      @rpc_request.response = server.call(params[:rpc_request][:methodName], p)
     rescue Exception => e
       @rpc_request.response  = e.message
     end
