@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :option_id %><br />
+    <%= f.collection_select :option_id, Option.find_all_by_name "host", :id, :value %>
+  </div>
+  <div class="field">
     <%= f.label :methodName %><br />
     <%= f.text_field :methodName %>
   </div>

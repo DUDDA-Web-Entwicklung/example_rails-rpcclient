@@ -35,20 +35,30 @@ class RpcRequestsController < ApplicationController
   # GET /rpc_requests/1/edit
   def edit
     @rpc_request = RpcRequest.find(params[:id])
+    option = Option.new({:option => {:name => "host", :value => "rpcserver.dev"}})
+    option.save!
+    option2 = Option.new({:option => {:name => "host", :value => "rpcserver.herokuapp.com"}})
+    option2.save!
+    option3 = Option.new({:option => {:name => "host", :value => "localhost:8080"}})
+    option3.save!
+    option3 = Option.new({:option => {:name => "default-host", :value => "rpcserver.dev"}})
+    option3.save!
   end
 
   # POST /rpc_requests
   # POST /rpc_requests.json
   def create
     @rpc_request = RpcRequest.new(params[:rpc_request])
+    @option = Option.find(params[:rpc_request][:option_id])
     require "xmlrpc/client"
 
     # Make an object to represent the XML-RPC server.
     #server = XMLRPC::Client.new( "rpcserver.dev", "/", 80)
-    server = XMLRPC::Client.new( "rpcserver.herokuapp.com", "/", 80)
+    server = XMLRPC::Client.new( @option.value, "/", 80)
 
+    p = params[:rpc_request][:params].split "\n"
     # Call the remote server and get our result
-    @result = server.call(params[:rpc_request][:methodName], params[:rpc_request][:params], params[:rpc_request][:params])
+    @result = server.call(params[:rpc_request][:methodName], p[0].trim, p[1].trim)
     respond_to do |format|
       if @rpc_request.save
         format.html { redirect_to @rpc_request, :notice => 'Rpc request was successfully created.' }
