@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :methodName %><br />
-    <%= f.collection_select :methodName { 
+    <%= f.collection_select :methodName, { 
       "system.listMethods" => "system.listMethods",
       "system.methodHelp" => "system.methodHelp",
       "system.methodSignature" => "system.methodSignature", 
@@ -26,7 +26,7 @@
       "monitor.getLoadAverages" => "monitor.getLoadAverages",
       "monitor.getDiskSpace" => "monitor.getDiskSpace",
       "monitor.getSelectedDiskSpace" => "monitor.getSelectedDiskSpace"
-    }%>
+    } %>
   </div>
   <div class="field">
     <%= f.label :params %><br />
