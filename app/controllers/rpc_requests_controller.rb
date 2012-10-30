@@ -51,7 +51,7 @@ class RpcRequestsController < ApplicationController
 
     p = params[:rpc_request][:params].split "\n"
     # Call the remote server and get our result
-    @result = server.call(params[:rpc_request][:methodName], p[0].trim, p[1].trim)
+    @result = server.call(params[:rpc_request][:methodName], p[0].strip, p[1].strip)
     respond_to do |format|
       if @rpc_request.save
         format.html { redirect_to @rpc_request, :notice => 'Rpc request was successfully created.' }
