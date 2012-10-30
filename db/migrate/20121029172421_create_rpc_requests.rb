@@ -3,6 +3,9 @@ class CreateRpcRequests < ActiveRecord::Migration
     create_table :rpc_requests do |t|
       t.string :methodName
       t.text :params
+      t.text :methodRequest
+      t.text :methodResponse
+      t.text :response
 
       t.timestamps
     end

@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :option_id %><br />
-    <%= f.collection_select :option_id, Option.where( :name => "host"), :id, :value %>
+    <%= f.collection_select :option_id, @options, :id, :value %>
   </div>
   <div class="field">
     <%= f.label :methodName %><br />

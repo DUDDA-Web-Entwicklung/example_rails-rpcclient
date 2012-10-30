@@ -4,6 +4,7 @@
   <tr>
     <th>Methodname</th>
     <th>Params</th>
+    <th>Ergebnis</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,6 +14,7 @@
   <tr>
     <td><%= rpc_request.methodName %></td>
     <td><%= rpc_request.params %></td>
+    <td><%= rpc_request.response %></td>
     <td><%= link_to 'Show', rpc_request %></td>
     <td><%= link_to 'Edit', edit_rpc_request_path(rpc_request) %></td>
     <td><%= link_to 'Destroy', rpc_request, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
