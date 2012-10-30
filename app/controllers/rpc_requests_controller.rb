@@ -49,7 +49,7 @@ class RpcRequestsController < ApplicationController
     #server = XMLRPC::Client.new( "rpcserver.dev", "/", 80)
     logger.info @option.value
     #server = XMLRPC::Client.new( @option.value, "/", 80)
-    server = XMLRPC::Client.new( rpcserver.herokuapp.com, "/", 80)
+    server = XMLRPC::Client.new( "rpcserver.herokuapp.com", "/", 80)
 
     p = params[:rpc_request][:params].split "\n"
     # Call the remote server and get our result
