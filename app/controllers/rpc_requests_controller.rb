@@ -60,7 +60,12 @@ class RpcRequestsController < ApplicationController
     p = params[:rpc_request][:params].split "\n"
     # Call the remote server and get our result
     begin
-      @rpc_request.response = server.call(params[:rpc_request][:methodName], p)
+      if p.empty?
+        @rpc_request.response = server.call(params[:rpc_request][:methodName])
+      else
+        @rpc_request.response = server.call(params[:rpc_request][:methodName], p)
+      end  
+      
     rescue Exception => e
       @rpc_request.response  = e.message
     end
