@@ -10,12 +10,10 @@
   <%= @rpc_request.params %>
 </p>
 
-<% if @result %>
-    Ergebnis:<br/>
-    <%= @result["sum"] %><br/>
-    <%= @result["difference"] %>
-<% end %>
-
+<p>
+  <b>Response:</b>
+  <%= @rpc_request.response %>
+</p>
 
 <%= link_to 'Edit', edit_rpc_request_path(@rpc_request) %> |
 <%= link_to 'Back', rpc_requests_path %>
