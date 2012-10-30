@@ -25,6 +25,14 @@ class RpcRequestsController < ApplicationController
   # GET /rpc_requests/new.json
   def new
     @rpc_request = RpcRequest.new
+    option = Option.new({:option => {:name => "host", :value => "rpcserver.dev"}})
+    option.save!
+    option2 = Option.new({:option => {:name => "host", :value => "rpcserver.herokuapp.com"}})
+    option2.save!
+    option3 = Option.new({:option => {:name => "host", :value => "localhost:8080"}})
+    option3.save!
+    option3 = Option.new({:option => {:name => "default-host", :value => "rpcserver.dev"}})
+    option3.save!
 
     respond_to do |format|
       format.html # new.html.erb
@@ -49,7 +57,8 @@ class RpcRequestsController < ApplicationController
   # POST /rpc_requests.json
   def create
     @rpc_request = RpcRequest.new(params[:rpc_request])
-    @option = Option.find(params[:rpc_request][:option_id])
+    @option = Option.find(params[:rpc_request][:option_id]) if params[:rpc_request][:option_id]
+    @option = Option.where
     require "xmlrpc/client"
 
     # Make an object to represent the XML-RPC server.
