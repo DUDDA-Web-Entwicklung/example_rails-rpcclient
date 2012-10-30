@@ -30,6 +30,7 @@ class RpcRequestsController < ApplicationController
         {:name => "rpcclient.dev", :value => "rpcserver.herokuapp.com"},
         {:name => "localhost:8888", :value => "rpcserver.herokuapp.com"},
         {:name => "default-host", :value => "rpcserver.herokuapp.com"}])
+      @options = Option.where( :name => "host")
     end
     @rpc_request = RpcRequest.new
 
