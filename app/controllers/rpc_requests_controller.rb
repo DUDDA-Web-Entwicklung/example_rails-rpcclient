@@ -47,6 +47,7 @@ class RpcRequestsController < ApplicationController
 
     # Make an object to represent the XML-RPC server.
     #server = XMLRPC::Client.new( "rpcserver.dev", "/", 80)
+    logger.debug @option.value
     server = XMLRPC::Client.new( @option.value, "/", 80)
 
     p = params[:rpc_request][:params].split "\n"
