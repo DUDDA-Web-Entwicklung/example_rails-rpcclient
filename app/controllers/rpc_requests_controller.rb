@@ -34,14 +34,6 @@ class RpcRequestsController < ApplicationController
 
   # GET /rpc_requests/1/edit
   def edit
-    option = Option.new({:name => "host", :value => "rpcserver.dev"})
-    option.save!
-    option2 = Option.new({:name => "host", :value => "rpcserver.herokuapp.com"})
-    option2.save!
-    option3 = Option.new({:name => "host", :value => "localhost:8080"})
-    option3.save!
-    option3 = Option.new({:name => "default-host", :value => "rpcserver.dev"})
-    option3.save!
     @rpc_request = RpcRequest.find(params[:id])
   end
 
