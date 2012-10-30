@@ -24,13 +24,13 @@ class RpcRequestsController < ApplicationController
   # GET /rpc_requests/new
   # GET /rpc_requests/new.json
   def new
-    @options = Option.where( :name => "host")
+    @options = Option.where(:name => "host")
     unless @options
       Option.create([{:name => "host", :value => "rpcserver.herokuapp.com"},
-        {:name => "rpcclient.dev", :value => "rpcserver.herokuapp.com"},
-        {:name => "localhost:8888", :value => "rpcserver.herokuapp.com"},
+        {:name => "host", :value => "rpcclient.dev"},
+        {:name => "host", :value => "localhost:8888"},
         {:name => "default-host", :value => "rpcserver.herokuapp.com"}])
-      @options = Option.where( :name => "host")
+      @options = Option.where(:name => "host")
     end
     @rpc_request = RpcRequest.new
 
