@@ -44,15 +44,11 @@ class RpcRequestsController < ApplicationController
     require "xmlrpc/client"
 
     # Make an object to represent the XML-RPC server.
-    server = XMLRPC::Client.new( "rpcserver.dev", "/", 80)
+    #server = XMLRPC::Client.new( "rpcserver.dev", "/", 80)
+    server = XMLRPC::Client.new( "rpcserver.herokuapp.com", "/", 80)
 
     # Call the remote server and get our result
-    @result = server.call("sample.sumAndDifference", params[:rpc_request][:params], params[:rpc_request][:params])
-
-    sum = result["sum"]
-    difference = result["difference"]
-
-    logger.debug "Sum: #{sum}, Difference: #{difference}"
+    @result = server.call(params[:rpc_request][:methodName], params[:rpc_request][:params], params[:rpc_request][:params])
     respond_to do |format|
       if @rpc_request.save
         format.html { redirect_to @rpc_request, :notice => 'Rpc request was successfully created.' }
