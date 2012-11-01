@@ -25,11 +25,11 @@ class RpcRequestsController < ApplicationController
   # GET /rpc_requests/new.json
   def new
     @options = Option.where(:name => "host")
-    unless @options
+    unless @options.first
       Option.create([{:name => "host", :value => "rpcserver.herokuapp.com"},
-        {:name => "host", :value => "rpcclient.dev"},
-        {:name => "host", :value => "localhost:8888"},
-        {:name => "default-host", :value => "rpcserver.herokuapp.com"}])
+          {:name => "host", :value => "rpcclient.dev"},
+          {:name => "host", :value => "localhost:8888"},
+          {:name => "default-host", :value => "rpcserver.herokuapp.com"}])
       @options = Option.where(:name => "host")
     end
     @rpc_request = RpcRequest.new
@@ -49,13 +49,24 @@ class RpcRequestsController < ApplicationController
   # POST /rpc_requests.json
   def create
     @rpc_request = RpcRequest.new(params[:rpc_request])
-    @option = Option.find(params[:rpc_request][:option_id]) if params[:rpc_request][:option_id]
-    @option = Option.where(:name => "default-host").first unless @option
+    if params[:rpc_request][:option_name] and params[:rpc_request][:option_name] != ""
+      @option = Option.find_or_create_by_name_and_value("host", params[:rpc_request][:option_name])
+    else
+      @option = Option.find(params[:rpc_request][:option_id]) if params[:rpc_request][:option_id]
+      @option = Option.where(:name => "default-host").first unless @option
+    end
     require "xmlrpc/client"
 
     # Make an object to represent the XML-RPC server.
     #server = XMLRPC::Client.new( "rpcserver.dev", "/", 80)
-    server = XMLRPC::Client.new( @option.value, "/", 80)
+    #server = XMLRPC::Client.new( @option.value, "/", 80)
+    host_port = @option.value.split ":"
+    if host_port.size > 1
+      server = XMLRPC::Client.new( host_port[0], "/", host_port[1])
+      #server = XMLRPC::Client.new( host_port[0], "/", 8080)
+    else
+      server = XMLRPC::Client.new( @option.value, "/", 80)
+    end
     #server = XMLRPC::Client.new( "rpcserver.herokuapp.com", "/", 80)
     p = params[:rpc_request][:params].split "\n"
     # Call the remote server and get our result

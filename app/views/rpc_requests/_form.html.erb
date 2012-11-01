@@ -15,6 +15,11 @@
     <%= f.label :option_id %><br />
     <%= f.collection_select :option_id, @options, :id, :value %>
   </div>
+  or
+  <div class="field">
+    <%= f.label :option_name %><br />
+    <%= f.text_field :option_name %>
+  </div>
   <div class="field">
     <%= f.label :methodName %><br />
     <%= f.collection_select :methodName, { 

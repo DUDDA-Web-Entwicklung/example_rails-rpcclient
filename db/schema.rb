@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,13 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121029172421) do
+ActiveRecord::Schema.define(:version => 20121030172421) do
+
+  create_table "options", :force => true do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "rpc_requests", :force => true do |t|
     t.string   "methodName"
     t.text     "params"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.text     "methodRequest"
+    t.text     "methodResponse"
+    t.text     "response"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
 end
