@@ -24,14 +24,15 @@ class RpcRequestsController < ApplicationController
   # GET /rpc_requests/new
   # GET /rpc_requests/new.json
   def new
-    @options = Option.where(:name => "host")
+    @options = Option.where(:name => "host").order(:value)
     unless @options.first
       Option.create([{:name => "host", :value => "rpcserver.herokuapp.com"},
-          {:name => "host", :value => "rpcclient.dev"},
-          {:name => "host", :value => "localhost:8888"},
-          {:name => "default-host", :value => "rpcserver.herokuapp.com"}])
-      @options = Option.where(:name => "host")
+                     {:name => "host", :value => "rpcclient.dev"},
+                     {:name => "host", :value => "localhost:8888"},
+                     {:name => "default-host", :value => "rpcserver.herokuapp.com"}])
+      @options = Option.where(:name => "host").order(:value)
     end
+    @default_option = Option.find_by_name "default-host"
     @rpc_request = RpcRequest.new
 
     respond_to do |format|
@@ -49,36 +50,38 @@ class RpcRequestsController < ApplicationController
   # POST /rpc_requests.json
   def create
     @rpc_request = RpcRequest.new(params[:rpc_request])
-    if params[:rpc_request][:option_name] and params[:rpc_request][:option_name] != ""
-      @option = Option.find_or_create_by_name_and_value("host", params[:rpc_request][:option_name])
+    @default_option = Option.find_or_create_by_name("default-host")
+    if params[:rpc_request][:option_value] and params[:rpc_request][:option_value] != ""
+      @option = Option.find_or_create_by_name_and_value("host", params[:rpc_request][:option_value])
+      @default_option.value = @option.value
     else
       @option = Option.find(params[:rpc_request][:option_id]) if params[:rpc_request][:option_id]
-      @option = Option.where(:name => "default-host").first unless @option
+      @option = Option.find_by_name "default-host" unless @option
+      @default_option.value = @option.value
     end
+
+    @default_option.save!
     require "xmlrpc/client"
 
     # Make an object to represent the XML-RPC server.
-    #server = XMLRPC::Client.new( "rpcserver.dev", "/", 80)
-    #server = XMLRPC::Client.new( @option.value, "/", 80)
     host_port = @option.value.split ":"
     if host_port.size > 1
-      server = XMLRPC::Client.new( host_port[0], "/", host_port[1])
-      #server = XMLRPC::Client.new( host_port[0], "/", 8080)
+      server = XMLRPC::Client.new(host_port[0], "/", host_port[1])
     else
-      server = XMLRPC::Client.new( @option.value, "/", 80)
+      server = XMLRPC::Client.new(@option.value, "/", 80)
     end
-    #server = XMLRPC::Client.new( "rpcserver.herokuapp.com", "/", 80)
     p = params[:rpc_request][:params].split "\n"
     # Call the remote server and get our result
     begin
       if p.empty?
         @rpc_request.response = server.call(params[:rpc_request][:methodName])
       else
-        @rpc_request.response = server.call(params[:rpc_request][:methodName], p)
-      end  
-      
+        @rpc_request.response = server.call(params[:rpc_request][:methodName], p[0]) if params[:rpc_request][:methodName] != "monitor.getSelectedDiskSpace"
+        @rpc_request.response = server.call(params[:rpc_request][:methodName], p) if params[:rpc_request][:methodName] == "monitor.getSelectedDiskSpace"
+      end
+
     rescue Exception => e
-      @rpc_request.response  = e.message
+      @rpc_request.response = e.message
     end
     respond_to do |format|
       if @rpc_request.save

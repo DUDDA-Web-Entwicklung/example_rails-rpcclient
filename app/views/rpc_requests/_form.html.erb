@@ -10,15 +10,14 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :option_id %><br />
-    <%= f.collection_select :option_id, @options, :id, :value %>
+    <%= f.collection_select :option_id, @options, :id, :value, {:selected => lambda {|obj| obj.value == @default_option.value }} %>
   </div>
   or
   <div class="field">
-    <%= f.label :option_name %><br />
-    <%= f.text_field :option_name %>
+    <%= f.label :option_value %><br />
+    <%= f.text_field :option_value %>
   </div>
   <div class="field">
     <%= f.label :methodName %><br />
