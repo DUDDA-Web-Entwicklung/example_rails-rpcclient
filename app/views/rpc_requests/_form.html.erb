@@ -12,7 +12,7 @@
   <% end %>
   <div class="field">
     <%= f.label :option_id %><br />
-    <%= f.collection_select :option_id, @options, :id, :value, {:selected => lambda {|obj| obj.value == @default_option.value }} %>
+    <%= f.collection_select :option_id, @options, :id, :value, {:selected => lambda {|obj| @default_option and obj.value == @default_option.value }} %>
   </div>
   or
   <div class="field">

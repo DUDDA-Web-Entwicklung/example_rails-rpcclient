@@ -22,19 +22,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="rpc_requests_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="rpc_requests_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/rpc_requests_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="100" selection-start="1727" selection-end="1727" vertical-scroll-proportion="0.35863096">
+            <state line="54" column="100" selection-start="1727" selection-end="1727" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_form.html.erb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="_form.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/rpc_requests/_form.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="100" selection-start="529" selection-end="529" vertical-scroll-proportion="-9.5">
+            <state line="14" column="110" selection-start="539" selection-end="539" vertical-scroll-proportion="0.41304347">
               <folding />
             </state>
           </provider>
@@ -62,8 +62,8 @@
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/app/views/rpc_requests/show.html.erb" />
         <option value="$PROJECT_DIR$/app/models/rpc_request.rb" />
-        <option value="$PROJECT_DIR$/app/views/rpc_requests/_form.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/rpc_requests_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/rpc_requests/_form.html.erb" />
       </list>
     </option>
   </component>
@@ -514,16 +514,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/rpc_requests/_form.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/rpc_requests_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="100" selection-start="529" selection-end="529" vertical-scroll-proportion="-9.5">
+        <state line="54" column="100" selection-start="1727" selection-end="1727" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/rpc_requests_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/rpc_requests/_form.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="100" selection-start="1727" selection-end="1727" vertical-scroll-proportion="0.35863096">
+        <state line="14" column="110" selection-start="539" selection-end="539" vertical-scroll-proportion="0.41304347">
           <folding />
         </state>
       </provider>
