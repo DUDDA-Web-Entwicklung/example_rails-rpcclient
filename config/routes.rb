@@ -1,6 +1,6 @@
 Rpcclient::Application.routes.draw do
   resources :rpc_requests
-
+  root :to => 'rpc_requests#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
